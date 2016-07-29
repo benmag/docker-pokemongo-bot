@@ -1,22 +1,21 @@
 FROM python:2.7-alpine
 
 # Set environment variables that can be overwritten 
-ENV AUTH_SERVICE "google" \ 
-	USERNAME "username" \
-	PASSWORD "password" \ 
-	LOCATION "LAT LON" \
-	GOOGLE_MAPS_KEY "google-maps-api-key" \ 
-	MAX_STEPS "5" \ 
-	MODE "all" \
-	WALK "4.16" \
-	DEBUG "false" \
-	TEST "false" \
-	INITIAL_TRANSFER 0 \
-	LOCATION_CACHE "true" \
-	DISTANCE_UNIT "km" \
-	ITEM_FILTER "101,102,103,104" \
-	EVOLVE_ALL "NONE"
-
+ENV AUTH_SERVICE "google"
+ENV USERNAME "username" 
+ENV PASSWORD "password" 
+ENV LOCATION "LAT LON"
+ENV GOOGLE_MAPS_KEY "google-maps-api-key" 
+ENV MAX_STEPS "5" 
+ENV MODE "all" 
+ENV WALK "4.16" 
+ENV DEBUG "false" 
+ENV TEST "false" 
+ENV INITIAL_TRANSFER 0 
+ENV LOCATION_CACHE "true" 
+ENV DISTANCE_UNIT "km" 
+ENV ITEM_FILTER "101,102,103,104" 
+ENV EVOLVE_ALL "NONE"
 
 # Working directory for the application
 WORKDIR /usr/src/app
@@ -32,18 +31,28 @@ RUN apk add --no-cache build-base \
  && pip install --no-cache-dir -r requirements.txt \
  && apk del build-base
 
-CMD python pokecli.py \
-	-a $AUTH_SERVICE \
-	-u $USERNAME \
-	-p $PASSWORD \
-	-l $LOCATION \
-	-lc $LOCATION_CACHE \
-	-m $MODE \
-	-w $WALK \
-	-k $GOOGLE_MAPS_KEY \
-	-ms $MAX_STEPS \
-	-it INITIAL_TRANSFER \
-	-d $DEBUG \
-	-du $DISTANCE_UNIT \
-	-if $ITEM_FILTER \
-	-ev $EVOLVE_ALL
+# Rename release_config.json.example to release_config.json
+RUN mv release_config.json.example release_config.json
+
+# Write the config.json because someone decided to stop the params from working
+RUN echo "{" \
+		"\"auth_service\": \"$AUTH_SERVICE\", " \
+		"\"username\": \"$USERNAME\", " \
+		"\"password\": \"$PASSWORD\", " \
+		"\"location\": \"$LOCATION\", " \
+		"\"gmapkey\": \"$GOOGLE_MAPS_KEY\", " \
+		"\"max_steps\": \"$MAX_STEPS\", " \
+		"\"mode\": \"$MODE\", " \
+		"\"walk\": \"$WALK\", " \
+		"\"debug\": \"$DEBUG\", " \
+		"\"test\": \"$TEST\", " \
+		"\"initial_transfer\": \"$INITIAL_TRANSFER\", " \
+		"\"location_cache\": \"$LOCATION_CACHE\", " \
+		"\"distance_unit\": \"$DISTANCE_UNIT\", " \
+		"\"item_filter\": \"$ITEM_FILTER\", " \
+		"\"evolve_all\": \"$EVOLVE_ALL\" " \
+		"}" \
+	> config.json
+
+CMD python pokecli.py
+
