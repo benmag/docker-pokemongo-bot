@@ -7,10 +7,11 @@ echo "{" \
 	"\"password\": \"$PASSWORD\", " \
 	"\"location\": \"$LOCATION\", " \
 	"\"gmapkey\": \"$GOOGLE_MAPS_KEY\", " \
-	"\"max_steps\": $MAX_STEPS, " \
-	"\"catch_pokemon\": \"$CATCH_POKEMON\", " \
+	"\"libencrypt_location\": \"\", " \
+	"\"tasks\": $TASKS, " \
+	"\"map_object_cache_time\": 5, " \
+	"\"forts\": $FORTS, " \
 	"\"websocket_server\": $WEBSOCKET_SERVER, " \
-	"\"spin_forts\": $SPIN_FORTS, " \
 	"\"walk\": $WALK, " \
 	"\"action_wait_min\": $ACTION_WAIT_MIN, " \
 	"\"action_wait_max\": $ACTION_WAIT_MAX, " \
@@ -20,19 +21,14 @@ echo "{" \
 	"\"location_cache\": $LOCATION_CACHE, " \
 	"\"distance_unit\": \"$DISTANCE_UNIT\", " \
 	"\"reconnecting_timeout\": $RECONNECTING_TIMEOUT, " \
-	"\"item_filter\": $ITEM_FILTER, " \
-	"\"evolve_all\": \"$EVOLVE_ALL\", " \
-	"\"evolve_speed\": $EVOLVE_SPEED, " \
-	"\"evolve_cp_min\": $EVOLVE_CP_MIN, " \
-	"\"use_lucky_egg\": $USE_LUCKY_EGG, " \
-	"\"longer_eggs_first\": $LONGER_EGGS_FIRST, " \
 	"\"evolve_captured\": $EVOLVE_CAPTURED, " \
-	"\"release_pokemon\": $RELEASE_POKEMON, " \
-	"\"spin_forts\": $SPIN_FORTS, " \
+	"\"catch_randomize_reticle_factor\": $CATCH_RANDOMIZE_RETICLE_FACTOR, " \
+	"\"catch_randomize_spin_factor\": $CATCH_RANDOMIZE_SPIN_FACTOR, " \
 	"\"catch\": $CATCH, " \
-	"\"release\": $RELEASE " \
+	"\"release\": $RELEASE, " \
+	"\"vips\": $VIPS " \
 	"}" \
-> config.json
+> configs/config.json
 	
 # Start bot 
-python pokecli.py -cf config.json
+python pokecli.py 
