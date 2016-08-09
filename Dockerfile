@@ -38,7 +38,7 @@ WORKDIR /usr/src/app
 RUN apk add --no-cache ca-certificates git nano protobuf
 
 # Clone app into workdir
-RUN git clone -b dev https://github.com/PokemonGoF/PokemonGo-Bot .
+RUN git clone -b master https://github.com/PokemonGoF/PokemonGo-Bot .
 
 # Install all prerequisites (build base used for gcc of some python modules)
 RUN apk add --no-cache build-base \
